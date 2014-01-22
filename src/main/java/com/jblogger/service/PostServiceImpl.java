@@ -1,0 +1,89 @@
+package com.jblogger.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.jblogger.dao.PostDao;
+import com.jblogger.dto.Pager;
+import com.jblogger.model.Post;
+
+@Service
+@Transactional
+public class PostServiceImpl implements PostService {
+
+	private static final int POSTS_PER_PAGE = 10;
+	
+	private PostDao postDao;
+	
+	@Autowired
+	public void setPostDao(PostDao postDao) {
+		this.postDao = postDao;
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Post getPost(Long id) {
+		//return postDao.find(id);
+		return postDao.findWithComments(id);
+	}
+
+	@Override
+	public void createPost(Post post) {
+		postDao.add(post);
+	}
+
+	@Override
+	public void updatePost(Post post) {
+		postDao.Update(post);
+	}
+
+	@Override
+	public void deletePost(Long id) {
+		Post post = postDao.find(id);
+		postDao.delete(post);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<Post> listPosts() {
+		return postDao.list();
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<Post> sublistPosts(Integer firstResult, Integer maxResults) {
+		return postDao.sublist(firstResult, maxResults);
+	}
+
+	@Override
+	public Pager listPostsInReverseChronologicalOrder(Integer page) {
+		
+		// First get the number of posts in the system
+		int postCount = postDao.count();
+		System.out.println("post count: " + String.valueOf(postCount));
+		
+		// Now work out how many posts should show per page
+		int numPages = (int) Math.ceil((double) postCount / POSTS_PER_PAGE);
+		System.out.println("numPages: " + String.valueOf(numPages));
+		
+		// Set to first page if no page was supplied or it was a higher number than the available pages (starting at 1)
+		// @todo throw a page not found exception or similar
+		if (page == null || page > numPages) {
+			page = 1;
+		}
+		System.out.println("effing page is: " + String.valueOf(page));
+		// Post list will start at index 1 so we take that into account by adjusting (-1)
+		int postStartIndex = (page - 1) * POSTS_PER_PAGE;
+		System.out.println("start index: " + String.valueOf(postStartIndex));
+		
+		return new Pager(
+			page + 1 <= numPages ? page + 1 : null,
+			page - 1 > 0 ? page - 1 : null,
+			postDao.reverseChronologicalOrder(postStartIndex, POSTS_PER_PAGE)
+		);
+	}
+	
+}
