@@ -9,7 +9,7 @@
 	<h1>Blog Posts <span class="small">(paginated in reverse chronological order)</span></h1>
 </div>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasRole('ADMIN')">
 	<a href="<c:url value="posts/new" />" class="btn btn-info btn-large">New post</a>
 </sec:authorize>
 
@@ -31,7 +31,6 @@
 			<header>
 				<h2>${post.title}&nbsp;<time datetime="${post.published}" class="small">Published on <fmt:formatDate value="${post.published}" /></time></h2>
 			</header>
-			<%-- @todo add a post.summary option to the model to remove <p></p> and perform substring --%>
 			${post.bodySummary}
 			<br />
 			<a href="${postUrl}">Read article <span class="glyphicon glyphicon-chevron-right"></span></a>

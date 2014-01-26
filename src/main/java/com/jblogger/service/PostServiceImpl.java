@@ -3,11 +3,16 @@ package com.jblogger.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jblogger.dao.PostDao;
 import com.jblogger.dto.Pager;
+import com.jblogger.model.Comment;
 import com.jblogger.model.Post;
 
 @Service
@@ -84,6 +89,14 @@ public class PostServiceImpl implements PostService {
 			page - 1 > 0 ? page - 1 : null,
 			postDao.reverseChronologicalOrder(postStartIndex, POSTS_PER_PAGE)
 		);
+	}
+	
+	public void addCommentToPost(Long postId, Comment comment) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) auth.getPrincipal();
+		comment.setUsername(user.getUsername());
+		Post post = getPost(postId);
+		post.addComment(comment);
 	}
 	
 }

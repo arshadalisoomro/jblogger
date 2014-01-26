@@ -4,90 +4,87 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+//import javax.validation.constraints.NotNull;
+
+import com.jblogger.model.Authority;
+
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
-	@Id
-	@GeneratedValue
-	private Integer id;
-	
-	private String login;
-	
-	private String password;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinTable(name="user_roles",  
-    	joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},  
-    	inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}  
-	)  
-	private Role role;
-	
-	//@OneToMany(mappedBy="team", cascade=CascadeType.ALL)  
-    //private Set<player> players;
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	private Set<Comment> comments = new HashSet<Comment>();
-	
-	public User() {}
-	
-	public User(String login, String password) {
-		setLogin(login);
-		setPassword(password);
+
+    private static final long serialVersionUID = -8275492272371421013L;
+
+    @Id
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+//    @NotNull
+    private String password;
+
+    @Column(name = "enabled", nullable = false)
+//    @NotNull
+    private Boolean enabled;
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity=Authority.class)
+    private Set<Authority> appAuthorities = new HashSet<Authority>();
+
+    public User() {
+    }
+    
+    public User(String username, String password) {
+    	this.username = username;
+    	this.password = password;
+    	enabled = true;
+    }
+
+	public String getUsername() {
+		return username;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public Role getRole() {
-		return role;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password
-				+ "]";
+	public Set<Authority> getAppAuthorities() {
+		return appAuthorities;
 	}
 
-	public Set<Comment> getComments() {
-		return comments;
+	public void setAppAuthorities(Set<Authority> appAuthorities) {
+		this.appAuthorities = appAuthorities;
 	}
 	
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
+	public void addAuthority(Authority authority) {
+		authority.setUser(this);
+		getAppAuthorities().add(authority);
 	}
-	
-	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

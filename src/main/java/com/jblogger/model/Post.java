@@ -41,7 +41,7 @@ public class Post {
 	@Temporal(TemporalType.DATE)
 	private Date published;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="post_id")
 	List<Comment> comments = new ArrayList<Comment>();
 	
@@ -112,6 +112,11 @@ public class Post {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public void addComment(Comment comment) {
+		comment.setPost(this);
+		comments.add(comment);
 	}
 
 	@Override

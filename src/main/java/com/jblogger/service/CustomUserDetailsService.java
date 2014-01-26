@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-		com.jblogger.model.User domainUser = userDao.getUser(login);
+		/*com.jblogger.model.User domainUser = userDao.getUser(login);
 		System.out.println("******************* TESTING USER SERVICE");
 		System.out.println(domainUser.getLogin() + " " + domainUser.getPassword());
 		System.out.println(domainUser.getRole());
@@ -38,7 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 			true,	// credentialsNonExpired
 			true,	// accountNonLocked
 			getAuthorities(domainUser.getRole())
-		);
+		);*/
+		return null;
 	}
 	
 	public Collection<? extends GrantedAuthority> getAuthorities(Role role) {

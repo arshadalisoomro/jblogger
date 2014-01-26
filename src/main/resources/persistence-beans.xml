@@ -37,7 +37,7 @@
 				<list>
 					<value>com.jblogger.model.Comment</value>
 					<value>com.jblogger.model.Post</value>
-					<value>com.jblogger.model.Role</value>
+					<value>com.jblogger.model.Authority</value>
 					<value>com.jblogger.model.User</value>
 				</list>
 			</property>

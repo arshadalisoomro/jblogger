@@ -11,7 +11,7 @@
 	<c:import url="/WEB-INF/views/comment/partials/form.jsp">
 		<c:param name="post" value="${post}" />
 		<c:param name="formMethod" value="post" />
-		<c:param name="formAction" value="/posts/${post.id}/comment" />
+		<c:param name="formAction" value="/posts/${post.id}/comments" />
 		<c:param name="formButtonLabel" value="Post comment" />
 	</c:import>
 </div>

@@ -3,6 +3,10 @@ package com.jblogger.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,8 +35,14 @@ public class CommentController {
 		return "comment.new";
 	}
 	
-	@RequestMapping(value="/posts{id}/comments", method=RequestMethod.POST)
-	public String create(@Valid Comment comment, BindingResult result) {
-		return "something";
+	@RequestMapping(value="/posts/{postId}/comments", method=RequestMethod.POST)
+	public String create(@PathVariable("postId") Long postId, @Valid Comment comment, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("errors", result.getFieldErrors());
+			return "comment.new";
+		}
+		
+		postService.addCommentToPost(postId, comment);
+		return "redirect:/posts/" + postId;
 	}
 }

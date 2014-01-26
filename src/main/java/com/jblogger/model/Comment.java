@@ -14,14 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="comment")
 public class Comment {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@Size(min=2, max=500)
 	private String body;
 	
 	@Temporal(TemporalType.DATE)
@@ -31,9 +34,7 @@ public class Comment {
 	@JoinColumn(nullable=false)
 	private Post post;
 	
-	@ManyToOne
-	@JoinColumn(nullable=false)
-	private User user;
+	private String username;
 	
 	public Post getPost() {
 		return post;
@@ -86,13 +87,11 @@ public class Comment {
 		this.comments = comments;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	
-	
 }
