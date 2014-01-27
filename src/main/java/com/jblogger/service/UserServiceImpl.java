@@ -1,5 +1,7 @@
 package com.jblogger.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,16 @@ public class UserServiceImpl implements UserService {
 	public void createUser(User user, Authority authority) {
 		user.addAuthority(authority);
 		userDao.add(user);
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		userDao.delete(user);
+	}
+
+	@Override
+	public List<User> listUsers() {
+		return userDao.list();
 	}
 
 }

@@ -46,8 +46,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void deletePost(Long id) {
-		Post post = postDao.find(id);
+	public void deletePost(Post post) {
 		postDao.delete(post);
 	}
 
@@ -95,6 +94,12 @@ public class PostServiceImpl implements PostService {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) auth.getPrincipal();
 		comment.setUsername(user.getUsername());
+		Post post = getPost(postId);
+		post.addComment(comment);
+	}
+	
+	public void addCommentToPost(Long postId, Comment comment, String username) {
+		comment.setUsername(username);
 		Post post = getPost(postId);
 		post.addComment(comment);
 	}

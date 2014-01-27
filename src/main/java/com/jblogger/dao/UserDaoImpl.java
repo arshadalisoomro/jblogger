@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.jblogger.model.User;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends GenericHibernateDao<User, String> implements UserDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
