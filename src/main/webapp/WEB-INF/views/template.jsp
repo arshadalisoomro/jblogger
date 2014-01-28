@@ -13,13 +13,24 @@
 	<body>
 		<tiles:insertAttribute name="header" />
 		
+		<tiles:importAttribute name="sidebar" ignore="true" />
+		
 		<div class="container">
-			<div class="row">
-				<section class="col-lg-8">
+			<c:choose>
+				<c:when test="${sidebar != null}">
+					<div class="row">
+						<section class="col-lg-8">
+							<tiles:insertAttribute name="body" />
+						</section>
+						<tiles:insertAttribute name="sidebar" />
+					</div>
+				</c:when>
+				<c:otherwise>
 					<tiles:insertAttribute name="body" />
-				</section>
-				<tiles:insertAttribute name="sidebar" />
-			</div>
+				</c:otherwise>
+			</c:choose>
+			
+			
 		</div>
 	</body>
 </html>
