@@ -10,13 +10,18 @@
 		    <ul class="nav navbar-nav">
 		    	<li><a href="/posts">Articles</a></li>
 		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
 		    <sec:authorize access="isAuthenticated()"> 
-				<ul class="nav navbar-nav navbar-right">
-			    	<li>
-			    		<a href="/j_spring_security_logout">Hi, <sec:authentication property="principal.username" />. Logout!</a>
-			    	</li>
-			    </ul>
+		    	<li>
+		    		<a href="/j_spring_security_logout">Hi, <sec:authentication property="principal.username" />. Logout!</a>
+		    	</li>
 			</sec:authorize>
+			<sec:authorize access="!isAuthenticated()">
+				<li>
+					<a href="/spring_security_login">Hi, Guest. Login!</a>
+				</li>
+			</sec:authorize>
+			</ul>
 		</nav>
 	</div>
 </div>
