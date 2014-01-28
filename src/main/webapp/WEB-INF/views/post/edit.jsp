@@ -9,7 +9,7 @@
 	<c:import url="/WEB-INF/views/post/partials/form.jsp">
 		<c:param name="post" value="${post}" />
 		<c:param name="formMethod" value="put" />
-		<c:param name="formAction" value="/post/${post.id}" />
+		<c:param name="formAction" value="/posts/${post.id}" />
 		<c:param name="formButtonLabel" value="Update" />
 	</c:import>
 

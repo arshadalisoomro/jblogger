@@ -12,6 +12,10 @@
 </c:if>
 
 <form:form method="${formMethod}" action="${formAction}" commandName="comment" class="form-horizontal" role="form">
+	<form:hidden path="id" />
+	<c:if test="${comment.id != null}">
+		<form:hidden path="post" />
+	</c:if>
 	
 	<div class="form-group">
 		<form:label path="body" cssClass="col-sm-2 control-label">Your comment</form:label>

@@ -6,7 +6,6 @@ import com.jblogger.model.Post;
 
 public interface PostDao extends GenericDao<Post, Long> {
 	public List<Post> sublist(Integer firstResult, Integer maxResults);
-	public List<Post> reverseChronologicalOrder(int index, int numResults);
 	public Post findWithComments(Long id);
 	public int count();
 }

@@ -58,7 +58,7 @@ public class PostController {
 	@RequestMapping(value="/posts/{id}/edit", method=RequestMethod.GET)
 	public String edit(@PathVariable("id") Long id, Model model) {
 		Post post = postService.getPost(id);
-		model.addAttribute("posts", post);
+		model.addAttribute("post", post);
 		return "post.edit";
 	}
 	
@@ -69,7 +69,8 @@ public class PostController {
 			return "post.edit";
 		}
 		
-		post.setId(id);
+		//post.setId(id);
+		System.out.println(post);
 		postService.updatePost(post);
 		return "redirect:/posts/" + post.getId();
 	}

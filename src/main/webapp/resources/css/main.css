@@ -1,6 +1,7 @@
-body {
-	margin-top:60px;
-}
+body {margin-top:60px;}
+
+.navbar {background:#5eb95e;}
+.navbar a {color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.7);}
 
 .flowline-sml {margin-top:10px;}
 .flowline-med {margin-top:25px;}

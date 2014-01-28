@@ -54,4 +54,18 @@ public class CommentController {
 		model.addAttribute("post", post);
 		return "comment.edit";
 	}
+	
+	@RequestMapping(value="/posts/{postId}/comments/{commentId}/edit", method=RequestMethod.PUT)
+	public String update(@Valid Comment comment, BindingResult result, @PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, Model model) {
+		//Comment comment = commentService.getComment(commentId);
+		
+		if (result.hasErrors()) {
+			model.addAttribute("errors", result.getFieldErrors());
+			return "comment.edit";
+		}
+		
+		commentService.updateComment(comment);
+		return "redirect:/posts/" + postId;
+		
+	}
 }

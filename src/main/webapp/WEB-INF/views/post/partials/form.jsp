@@ -13,6 +13,8 @@
 
 <form:form method="${formMethod}" action="${formAction}" commandName="post" class="form-horizontal" role="form">
 	
+	<form:hidden path="id" />
+	
 	<div class="form-group">
 		<form:label path="title" cssClass="col-sm-2 control-label">Title</form:label>
 		<div class="col-sm-10">

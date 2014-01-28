@@ -3,7 +3,9 @@
 
 
 <form:form method="delete" action="/post/${post.id}" commandName="post" role="form">
-	<button type="submit" class="btn btn-primary btn-large" data-toggle="modal" data-target="#modal">Delete</button>
+	<button type="submit" class="btn btn-link" data-toggle="modal" data-target="#modal">
+		<span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
+	</button>
 </form:form>
 
 <c:import url="/WEB-INF/views/partials/modal.jsp">

@@ -31,7 +31,6 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional(readOnly=true)
 	public Post getPost(Long id) {
-		//return postDao.find(id);
 		return postDao.findWithComments(id);
 	}
 
@@ -67,26 +66,23 @@ public class PostServiceImpl implements PostService {
 		
 		// First get the number of posts in the system
 		int postCount = postDao.count();
-		System.out.println("post count: " + String.valueOf(postCount));
 		
 		// Now work out how many posts should show per page
 		int numPages = (int) Math.ceil((double) postCount / POSTS_PER_PAGE);
-		System.out.println("numPages: " + String.valueOf(numPages));
 		
 		// Set to first page if no page was supplied or it was a higher number than the available pages (starting at 1)
 		// @todo throw a page not found exception or similar
 		if (page == null || page > numPages) {
 			page = 1;
 		}
-		System.out.println("effing page is: " + String.valueOf(page));
+
 		// Post list will start at index 1 so we take that into account by adjusting (-1)
 		int postStartIndex = (page - 1) * POSTS_PER_PAGE;
-		System.out.println("start index: " + String.valueOf(postStartIndex));
 		
 		return new Pager(
 			page + 1 <= numPages ? page + 1 : null,
 			page - 1 > 0 ? page - 1 : null,
-			postDao.reverseChronologicalOrder(postStartIndex, POSTS_PER_PAGE)
+			postDao.sublist(postStartIndex, POSTS_PER_PAGE)
 		);
 	}
 	

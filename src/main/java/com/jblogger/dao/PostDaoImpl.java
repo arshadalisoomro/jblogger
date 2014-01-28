@@ -16,9 +16,6 @@ import com.jblogger.model.Post;
 @Repository
 public class PostDaoImpl extends GenericHibernateDao<Post, Long> implements PostDao {
 
-	/**
-	 * @todo DRY this up!!! Call it sublist or something like that
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Post> sublist(Integer firstResult, Integer maxResults) {
@@ -27,16 +24,6 @@ public class PostDaoImpl extends GenericHibernateDao<Post, Long> implements Post
 							   .setFirstResult(firstResult)
 							   .setMaxResults(maxResults)
 							   .list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Post> reverseChronologicalOrder(int index, int numResults) {
-		Criteria criteria = currentSession().createCriteria(Post.class);
-		criteria.addOrder(Order.desc("published"));
-		criteria.setFirstResult(index);
-		criteria.setMaxResults(numResults);
-		return criteria.list();
 	}
 
 	@Override
