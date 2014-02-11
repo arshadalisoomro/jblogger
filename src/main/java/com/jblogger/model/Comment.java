@@ -45,7 +45,6 @@ public class Comment {
 	}
 
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="comment_id")
 	private List<Comment> comments;
 	
 	public Comment() {}

@@ -1,6 +1,6 @@
-# Spring MVC and Hibernate template application 
+# Spring MVC and Hibernate Blog application 
 
-This is a template for a web application that uses Spring MVC and Hibernate. The sample code is a simple CRUD page that manipulates records for a single model object.
+Demo at http://jblogger.herokuapp.com/
 
 ## Running the application locally
 

@@ -10,4 +10,5 @@ public interface CommentService {
 	public void updateComment(Comment comment);
 	public void deleteComment(Comment comment);
 	public List<Comment> listComments();
+	public boolean isCommentOwner(Comment comment);
 }

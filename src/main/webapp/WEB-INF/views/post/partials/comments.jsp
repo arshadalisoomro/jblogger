@@ -15,7 +15,7 @@
 		</a>
 	</sec:authorize>
 	<sec:authorize access="!hasAnyRole('USER','ADMIN')">
-		<a href="/spring_security_login">
+		<a href="/posts/${post.id}/comments/new">
 			<span class="glyphicon glyphicon-star-empty"></span>&nbsp;Log in to add a comment!
 		</a>
 	</sec:authorize>

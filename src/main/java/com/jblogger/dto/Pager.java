@@ -40,6 +40,12 @@ public class Pager {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
+
+	@Override
+	public String toString() {
+		return "Pager [older=" + older + ", newer=" + newer + ", posts="
+				+ posts + "]";
+	}
 	
 	
 }

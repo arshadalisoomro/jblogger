@@ -22,7 +22,7 @@ public class PostController {
 	private PostService postService;
 	
 	@RequestMapping(value="/posts", method=RequestMethod.GET)
-	public String index(@RequestParam(value="page", defaultValue="0") int page, Model model) {
+	public String index(@RequestParam(value="page", defaultValue="1") int page, Model model) {
 		Pager pager = postService.listPostsInReverseChronologicalOrder(page);
 		model.addAttribute("pager", pager);
 		return "post.index";

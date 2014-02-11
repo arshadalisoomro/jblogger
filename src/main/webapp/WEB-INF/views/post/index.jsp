@@ -13,19 +13,17 @@
 	<sec:authorize access="hasRole('ADMIN')">
 		<a href="<c:url value="posts/new" />" class="btn btn-primary">New post</a>
 	</sec:authorize>
+
+	<ul class="pagination">
+		<c:if test="${pager.older != null}">
+			<li><a href="/posts?page=${pager.older}">&laquo; Older</a></li>
+		</c:if>
+		<c:if test="${pager.newer != null}">
+			<li><a href="/posts?page=${pager.newer}">Newer &raquo;</a></li>
+		</c:if>
+	</ul>
 	
-	<div class="flowline-med">
-		<ul class="pagination pull-right">
-		  <c:if test="${pager.older != null}">
-		  	<li><a href="/posts?page=${pager.older}">&laquo; Older</a></li>
-		  </c:if>
-		  <c:if test="${pager.newer != null}">
-		  <li><a href="/posts?page=${pager.newer}">Newer &raquo;</a></li>
-		  </c:if>
-		</ul>
-	</div>
-	
-	<div class="flowline-med clearfix">
+	<div class="clearfix">
 		<c:forEach items="${pager.posts}" var="post">
 			<c:url value="posts/${post.id}" var="postUrl" />
 			<article>

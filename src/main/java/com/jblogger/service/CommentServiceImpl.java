@@ -3,6 +3,9 @@ package com.jblogger.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public Comment getComment(Long id) {
 		return commentDao.find(id);
 	}
@@ -32,7 +36,9 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void updateComment(Comment comment) {
-		commentDao.Update(comment);
+		Comment persistentComment = commentDao.find(comment.getId());
+		persistentComment.setBody(comment.getBody());
+		commentDao.Update(persistentComment);
 	}
 
 	@Override
@@ -41,8 +47,16 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Comment> listComments() {
 		return commentDao.list();
 	}
-
+	
+	public boolean isCommentOwner(Comment comment) {
+		
+		return false;
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//User user = (User) auth.getPrincipal();
+		//comment.setUsername(user.getUsername());
+	}
 }

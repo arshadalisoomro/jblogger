@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jblogger.dao.CommentDao;
 import com.jblogger.dao.PostDao;
 import com.jblogger.dto.Pager;
 import com.jblogger.model.Comment;
@@ -22,10 +23,15 @@ public class PostServiceImpl implements PostService {
 	private static final int POSTS_PER_PAGE = 10;
 	
 	private PostDao postDao;
+	private CommentDao commentDao;
 	
 	@Autowired
 	public void setPostDao(PostDao postDao) {
 		this.postDao = postDao;
+	}
+	
+	@Autowired void setCommentDao(CommentDao commentDao) {
+		this.commentDao = commentDao;
 	}
 	
 	@Override
@@ -92,12 +98,14 @@ public class PostServiceImpl implements PostService {
 		comment.setUsername(user.getUsername());
 		Post post = getPost(postId);
 		post.addComment(comment);
+		commentDao.add(comment);
 	}
 	
 	public void addCommentToPost(Long postId, Comment comment, String username) {
-		comment.setUsername(username);
 		Post post = getPost(postId);
+		comment.setUsername(username);
 		post.addComment(comment);
+		commentDao.add(comment);
 	}
 	
 }

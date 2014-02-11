@@ -46,7 +46,7 @@ public class EntityGenerator {
 		userService.createUser(jessica);
 		
 		for(int i = 0; i < 100; i++) {
-			Post p = new Post("An Article", postBody, randomDate());
+			Post p = new Post("Article " + i, postBody, randomDate());
 			postService.createPost(p);
 			
 			Comment c1 = new Comment("This is test comment 1 for this post.", new Date());

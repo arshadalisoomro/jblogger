@@ -11,7 +11,7 @@
 	<div class="flowline-med">
 		<c:import url="/WEB-INF/views/comment/partials/form.jsp">
 			<c:param name="formMethod" value="put" />
-			<c:param name="formAction" value="/posts/${post.id}/comments${comment.id}" />
+			<c:param name="formAction" value="/posts/${post.id}/comments/${comment.id}" />
 			<c:param name="formButtonLabel" value="edit comment" />
 		</c:import>
 	</div>

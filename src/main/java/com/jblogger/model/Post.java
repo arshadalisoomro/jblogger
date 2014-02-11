@@ -41,7 +41,7 @@ public class Post {
 	@Temporal(TemporalType.DATE)
 	private Date published;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="post_id")
 	List<Comment> comments = new ArrayList<Comment>();
 	
